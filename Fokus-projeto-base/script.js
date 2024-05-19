@@ -1,7 +1,25 @@
 const html = document.querySelector('html');
-const focoBt = document.querySelector(".app__card-button--foco");
-const curtoBt = document.querySelector(".app__card-button--curto");
+const focoBt = document.querySelector('.app__card-button--foco');
+const curtoBt = document.querySelector('.app__card-button--curto');
+const longoBt = document.querySelector('.app__card-button--longo');
 
-focoBt.addEventListener("click", () =>{
-    html.setAttribute('data-contexto', 'descanso-curto') // propriedade usada para alterar o valor do algum atributo
+const banner = document.querySelector('.app__image');
+
+focoBt.addEventListener('click', () =>{
+    html.setAttribute('data-contexto', 'foco') // propriedade usada para alterar o valor do algum atributo
+    banner.setAttribute('src' , '/imagens/foco.png');
 })
+
+curtoBt.addEventListener('click', () => {
+    html.setAttribute('data-contexto', 'descanso-curto')
+    banner.setAttribute('src' , '/imagens/descanso-curto.png');
+
+})
+
+longoBt.addEventListener('click', () =>{
+    html.setAttribute('data-contexto', 'descanso-longo')
+    banner.setAttribute('src' , '/imagens/descanso-longo.png');
+})
+
+
+
