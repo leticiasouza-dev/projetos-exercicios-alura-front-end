@@ -9,8 +9,19 @@ const titulo = document.querySelector('.app__title');
 const botoes = document.querySelectorAll('.app__card-button');
 const musicaFocoInput = document.querySelector('#alternar-musica');
 const musica = new Audio('/sons/luna-rise-part-one.mp3') // instancia de audio
-musica.loop = true;
 
+const startPauseBt = document.querySelector('#start-pause')
+const iniciarOuPausarBt = document.querySelector('#start-pause span')
+
+const audioPlay = new Audio('/sons/play.wav');
+const audioPausa = new Audio('/sons/pause.mp3');
+const audioTempoFinalizado = new Audio('./sons/beep.mp3')
+
+
+let tempoDecorridoEmSegundos = 5;
+let intervaloId = null;
+
+musica.loop = true;
 musicaFocoInput.addEventListener('change', () =>{
     if(musica.paused){
         musica.play();
@@ -59,3 +70,39 @@ function alterarContexto(contexto){
 }
 
 
+const contagemRegressiva = () =>{
+    if(tempoDecorridoEmSegundos <= 0){
+        // audioTempoFinalizado.play()
+        alert("Tempo Finalizado");
+        zerar();
+        return; // usado para parar a execução
+    }
+
+    tempoDecorridoEmSegundos -= 1
+    console.log("temporizador:", tempoDecorridoEmSegundos);
+    console.log('Tempo: ' + tempoDecorridoEmSegundos);
+    console.log('Id: ' + intervaloId);
+}
+
+startPauseBt.addEventListener('click', () =>{
+    iniciarOuPausar()
+
+    
+})
+
+function iniciarOuPausar(){
+    if(intervaloId){
+        audioPausa.play();
+        zerar();
+        return;
+    }
+    intervaloId = setInterval(contagemRegressiva, 1000);
+    iniciarOuPausarBt.textContent = 'Pausar';
+
+}
+
+function zerar(){
+    clearInterval(intervaloId);
+    iniciarOuPausarBt.textContent = 'Começar';
+    intervaloId = null;
+}
